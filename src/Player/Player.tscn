@@ -4,7 +4,6 @@
 [ext_resource path="res://src/Player/Player.gd" type="Script" id=2]
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 432.514, 298 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -16,3 +15,6 @@ texture = ExtResource( 1 )
 position = Vector2( 0.33374, -0.33371 )
 scale = Vector2( 0.7, 0.7 )
 polygon = PoolVector2Array( -48.6701, -31.645, -32.5347, -47.7803, 47.0198, 0.0646057, -32.3575, 48.3609, -48.4299, 32.4868, -32.3575, 0.34201 )
+
+[node name="Muzzle" type="Position2D" parent="."]
+position = Vector2( 55.2426, 0 )
