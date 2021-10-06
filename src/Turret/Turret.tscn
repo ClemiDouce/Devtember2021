@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/CollisionBox/Hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/turret.png" type="Texture" id=2]
 [ext_resource path="res://src/Turret/Turret.gd" type="Script" id=3]
+[ext_resource path="res://src/UI/HealthDisplay.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 31.6338
@@ -27,6 +28,17 @@ collision_mask = 4
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource( 2 )
 
+[node name="Muzzle" type="Position2D" parent="."]
+position = Vector2( 64.4272, 0 )
+
+[node name="ShootDelay" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HealthDisplay" parent="." instance=ExtResource( 4 )]
+position = Vector2( -1.7818, -11.5817 )
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="timeout" from="ShootDelay" to="." method="_on_ShootDelay_timeout"]
 
 [editable path="Hitbox"]

@@ -3,10 +3,14 @@ extends KinematicBody2D
 const Bullet = preload("res://src/Bullet/PlayerBullet/PlayerBullet.tscn")
 
 onready var muzzle := $Muzzle
+onready var health_display = $HealthDisplay
 
-export var SPEED = 800
-export var FRICTION = 0.4
-export var ACCELERATION = 0.1
+export (int) var SPEED = 800
+export (float) var FRICTION = 0.4
+export (float) var ACCELERATION = 0.1
+
+export (int) var max_life = 3
+var life = max_life setget set_life
 
 var velocity = Vector2()
 
@@ -39,5 +43,13 @@ func _process(_delta: float) -> void:
 func shoot() -> void:
 	var bullet = Bullet.instance()
 	owner.add_child(bullet)
-	bullet.transform = muzzle.global_transform
-	
+	bullet.init(muzzle.global_transform, 700)
+
+func _on_Hitbox_area_entered(area: Area2D) -> void:
+	Global.camera.shake(400, 0.3, 300)
+	area.owner.queue_free()
+	self.life -= 1
+
+func set_life(new_value):
+	life = new_value
+	health_display.update_health(new_value)

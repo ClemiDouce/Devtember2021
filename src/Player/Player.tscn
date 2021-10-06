@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/sprites/ship_E.png" type="Texture" id=1]
 [ext_resource path="res://src/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://src/CollisionBox/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/UI/HealthDisplay.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 12.2349
+height = 41.9999
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -18,3 +24,17 @@ polygon = PoolVector2Array( -48.6701, -31.645, -32.5347, -47.7803, 47.0198, 0.06
 
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( 55.2426, 0 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 3 )]
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="HealthDisplay" parent="." instance=ExtResource( 4 )]
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+
+[editable path="Hitbox"]
