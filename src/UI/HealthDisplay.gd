@@ -9,5 +9,5 @@ func setup(max_life, life):
 func update_health(new_value):
 	progress.value = new_value
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	self.global_rotation = 0

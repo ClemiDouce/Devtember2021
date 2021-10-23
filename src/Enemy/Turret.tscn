@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Enemy/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Enemy/Turret.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/turret.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 48.7298, 48.9641 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 44.3191
+
+[node name="Turret" instance=ExtResource( 1 )]
+position = Vector2( 286.599, 243.787 )
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="HealthDisplay" parent="." index="1"]
+position = Vector2( 0, -15.1453 )
+
+[node name="Hitbox" parent="." index="2"]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource( 2 )
+
+[node name="Muzzle" type="Position2D" parent="." index="4"]
+
+[node name="ShootDelay" type="Timer" parent="." index="5"]
+
+[connection signal="timeout" from="ShootDelay" to="." method="_on_ShootDelay_timeout"]
+
+[editable path="Hitbox"]
